@@ -1117,9 +1117,10 @@ MonoBehaviour:
   rotationSpeed: 100
   neighbourRadius: 10
   seperationRadius: 5
+  seperationScalar: {x: 1, y: 0.3, z: 0.5}
   neighbourCohesionScore: 0.1
   generalCohesionScore: 0.03
-  seperationScore: 0.2
+  seperationScore: 0.5
   alignmentScore: 0.8
 --- !u!135 &3100759456404873285
 SphereCollider:

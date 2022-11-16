@@ -9,11 +9,14 @@ public class Boid : MonoBehaviour
     public float rotationSpeed = 100;
     public float neighbourRadius = 5f;
     public float seperationRadius = 2f;
+    [SerializeField] private Vector3 seperationScalar = Vector3.one;  // Scales the velocity vector of the Seperation rule, modify to 'scale' the shape of the flock
 
+    [Header("Scores")]
     [SerializeField] private float neighbourCohesionScore;
     [SerializeField] private float generalCohesionScore;
     [SerializeField] private float seperationScore;
     [SerializeField] private float alignmentScore;
+
 
     private HashSet<Boid> neighbourBoids = new HashSet<Boid>();
     private HashSet<Boid> seperationBoids = new HashSet<Boid>();
@@ -106,6 +109,9 @@ public class Boid : MonoBehaviour
             avoidanceDirection -= (boid.transform.position - transform.position).normalized/distance;
         }
 
+        avoidanceDirection.x *= seperationScalar.x;
+        avoidanceDirection.y *= seperationScalar.y;
+        avoidanceDirection.z *= seperationScalar.z;
         return avoidanceDirection;
     }
 

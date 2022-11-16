@@ -11,11 +11,11 @@ public class BoidManager : MonoBehaviour
 
     public Vector3 averagePos => CalculateAveragePos();
     public Vector3 averageDirection => CalculateAverageDirection();
-    public int boidCount => boidList.Count;
+    public int boidCount = 100;
 
     private void Awake()
     {
-        for (int i = 0; i < 100; i++)
+        for (int i = 0; i < boidCount; i++)
         {
             Boid newBoid = Instantiate(boidPrefab).GetComponent<Boid>();
             newBoid.InjectManager(this);
@@ -34,7 +34,7 @@ public class BoidManager : MonoBehaviour
             totalPos += obj.transform.position;
         }
 
-        return totalPos / boidObjList.Count;
+        return totalPos / boidCount;
     }
 
     private Vector3 CalculateAverageDirection()
@@ -47,6 +47,6 @@ public class BoidManager : MonoBehaviour
             totalDirection += b.direction;
         }
 
-        return totalDirection / boidObjList.Count;
+        return totalDirection / boidCount;
     }
 }
