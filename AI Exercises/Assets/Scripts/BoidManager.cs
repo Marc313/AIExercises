@@ -25,6 +25,17 @@ public class BoidManager : MonoBehaviour
         boidObjList = boidList.Select(b => b.gameObject).ToList();
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            foreach(Boid boid in boidList)
+            {
+                boid.Scatter();
+            }
+        }
+    }
+
     private Vector3 CalculateAveragePos()
     {
         Vector3 totalPos = Vector3.zero;

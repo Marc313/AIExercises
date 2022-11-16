@@ -9,6 +9,7 @@ public class Boid : MonoBehaviour
     public float rotationSpeed = 100;
     public float neighbourRadius = 5f;
     public float seperationRadius = 2f;
+    public float scatterDuration = 3f;
     [SerializeField] private Vector3 seperationScalar = Vector3.one;  // Scales the velocity vector of the Seperation rule, modify to 'scale' the shape of the flock
 
     [Header("Scores")]
@@ -22,6 +23,7 @@ public class Boid : MonoBehaviour
     private HashSet<Boid> seperationBoids = new HashSet<Boid>();
     private BoidManager manager;
     private Vector3 startPos;
+    private bool isScattering;
 
     private void Start()
     {
@@ -52,6 +54,21 @@ public class Boid : MonoBehaviour
         FindNearbyBoids();
         CalculateDirection();
         MoveToDirection();
+    }
+
+    public void Scatter()
+    {
+        if (isScattering) return;
+
+        InverseCohesionScores();
+        Invoke(nameof(InverseCohesionScores), scatterDuration);
+    }
+
+    private void InverseCohesionScores()
+    {
+        generalCohesionScore *= -1;
+        neighbourCohesionScore *= -1;
+        isScattering = !isScattering;
     }
 
     private void CalculateDirection()
