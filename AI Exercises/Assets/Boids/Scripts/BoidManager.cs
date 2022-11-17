@@ -13,6 +13,9 @@ public class BoidManager : MonoBehaviour
     public Vector3 averageDirection => CalculateAverageDirection();
     public int boidCount = 100;
 
+    private Scatterer scatterer;
+
+
     private void Awake()
     {
         for (int i = 0; i < boidCount; i++)
@@ -23,16 +26,15 @@ public class BoidManager : MonoBehaviour
         }
 
         boidObjList = boidList.Select(b => b.gameObject).ToList();
+        scatterer = FindObjectOfType<Scatterer>();
+        scatterer.gameObject.SetActive(false);
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.V))
         {
-            foreach(Boid boid in boidList)
-            {
-                boid.Scatter();
-            }
+            scatterer.gameObject.SetActive(!scatterer.gameObject.activeSelf);
         }
     }
 
